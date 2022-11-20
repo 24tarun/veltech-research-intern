@@ -1,0 +1,39 @@
+import tkinter
+
+from matplotlib.backends.backend_tkagg import (
+    FigureCanvasTkAgg, NavigationToolbar2Tk)
+# Implement the default Matplotlib key bindings.
+from matplotlib.backend_bases import key_press_handler
+from matplotlib.figure import Figure
+from tkinter import *
+import numpy as np
+
+def click():
+    etext=textentry.get()
+    ouput.delete(0.0,end)
+    definition=etext
+    ouput.insert(End,definition)
+
+root = tkinter.Tk()
+root.wm_title("Embedding in Tk")
+
+textentry = Entry(root, width=20, bg="white")
+textentry.grid(row=2,column=0 ,sticky=W)
+Button(root, text="submit",width=6,command=click).grid(row=3,column=0,sticky=W)
+Label (root,text="\nshift no",bg="black",fg="white",font="none 12 bold").grid(row=4,column=0,sticky=W)
+ouput = Text(root,width=75,height=6,wrap=WORD,bg="white")
+ouput.grid(row=5,column=0,columnspan=2,sticky=W)
+
+
+def _quit():
+    root.quit()     # stops mainloop
+    root.destroy()  # this is necessary on Windows to prevent
+                    # Fatal Python Error: PyEval_RestoreThread: NULL tstate
+
+
+button = tkinter.Button(master=root, text="Quit", command=_quit)
+button.pack(side=tkinter.BOTTOM)
+
+tkinter.mainloop()
+# If you put root.destroy() here, it will cause an error if the window is
+# closed with the window manager.
